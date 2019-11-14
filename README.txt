@@ -1,0 +1,1 @@
+This is a simple example of Angular with Node backend.
