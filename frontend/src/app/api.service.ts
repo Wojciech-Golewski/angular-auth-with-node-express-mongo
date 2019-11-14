@@ -11,8 +11,6 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getMessages() {
-    this.http.get(`${apiUrl}posts`).subscribe(response => {
-      console.log(response);
-    });
+    return this.http.get<string[]>(`${apiUrl}posts`);
   }
 }

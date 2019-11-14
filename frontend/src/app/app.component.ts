@@ -7,13 +7,16 @@ import { ApiService } from './api.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'frontend';
+
+  messages: string[] = [];
 
   constructor(
     private apiService: ApiService
   ) { }
 
   ngOnInit() {
-    this.apiService.getMessages();
+    this.apiService.getMessages().subscribe(data => {
+      this.messages = data;
+    })
   }
 }
