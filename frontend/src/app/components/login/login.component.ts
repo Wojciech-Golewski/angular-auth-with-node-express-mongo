@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
   }
 
   post() {
-    console.log(this.loginData);
     this.apiService.loginUser(this.loginData).subscribe();
   }
 }

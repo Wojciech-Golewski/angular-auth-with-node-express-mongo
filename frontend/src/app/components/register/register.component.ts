@@ -22,7 +22,6 @@ export class RegisterComponent implements OnInit {
   }
 
   post() {
-    console.log(this.registerData);
     this.apiService.sendUserRegistration(this.registerData).subscribe();
   }
 
