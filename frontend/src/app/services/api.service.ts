@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../models/user.model';
 
 const apiUrl: string = 'http://localhost:3000/';
 
@@ -14,14 +13,6 @@ export class ApiService {
 
   getMessages(): Observable<string[]> {
     return this.http.get<string[]>(`${apiUrl}posts`);
-  }
-
-  sendUserRegistration(registeredData: User): Observable<User> {
-    return this.http.post<User>(`${apiUrl}register`, registeredData);
-  }
-
-  loginUser(loginData: User): Observable<User> {
-    return this.http.post<User>(`${apiUrl}login`, loginData);
   }
 
 }
