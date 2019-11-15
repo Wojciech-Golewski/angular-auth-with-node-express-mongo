@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
 
+var User = require('./models/User');
+
 var posts = [
     {
         message: 'hello'
@@ -22,11 +24,16 @@ app.get('/posts', (req, res) => {
 
 app.post('/register', (req, res) => {
     var userData = req.body;
-    console.log(userData.email);
+
+    var user = new User(userData);
 
     // TODO: missing validation
 
-    res.sendStatus(200);
+    user.save((err, result) => {
+        if (err) console.log('error encountered while registering a new user');
+
+        res.sendStatus(200);
+    });
 });
 
 mongoose.connect(
