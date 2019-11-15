@@ -26,6 +26,10 @@ const routes = [
     component: LoginComponent
   },
   {
+    path: 'users',
+    component: UsersListComponent
+  },
+  {
     path: '**',
     redirectTo: '/',
     pathMatch: 'full'
