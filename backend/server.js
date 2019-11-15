@@ -2,6 +2,7 @@ var express = require('express');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var jwt = require('jwt-simple');
 var app = express();
 
 var User = require('./models/User');
@@ -24,9 +25,7 @@ app.get('/posts', (req, res) => {
 
 app.post('/register', (req, res) => {
     var userData = req.body;
-
     var user = new User(userData);
-
     // TODO: missing validation
 
     user.save((err, result) => {
@@ -35,6 +34,23 @@ app.post('/register', (req, res) => {
         res.send(req.body);
     });
 });
+
+app.post('/login', async (req, res) => {
+    var userData = req.body;
+    var user = await User.findOne({email: userData.email});
+
+    if (!user) return res.status(401)
+        .send({message: 'Email or Password invalid'});
+
+    if (userData.password != user.password) return res.status(401)
+        .send({message: 'Password is invalid'});
+
+    var payload = {};
+
+    var token = jwt.encode(payload, 'secret_123_should_come_from_config_file');
+
+    res.status(200).send({token: token});
+})
 
 mongoose.connect(
     'mongodb+srv://johnDoe:Password.1@angularauthtest-kmk3l.mongodb.net/test?retryWrites=true&w=majority',
