@@ -10,6 +10,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MessagesComponent } from './messages/messages.component';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { RegisterComponent } from './register/register.component';
+import { MatInputModule } from '@angular/material/input';
+
 
 const routes = [
   {
@@ -37,7 +39,8 @@ const routes = [
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
