@@ -12,7 +12,15 @@ import { MatToolbarModule} from '@angular/material/toolbar';
 import { RegisterComponent } from './register/register.component';
 
 const routes = [
-  
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/',
+    pathMatch: 'full'
+  }
 ];
 
 
