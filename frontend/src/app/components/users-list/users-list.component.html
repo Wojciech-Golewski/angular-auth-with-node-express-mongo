@@ -1,0 +1,6 @@
+<div *ngFor="let user of users">
+    <mat-card 
+        [routerLink]="['./profile', user._id]"
+        class="hover-effect"
+    >{{user.email}}</mat-card>
+</div>

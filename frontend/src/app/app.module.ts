@@ -13,6 +13,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 const routes = [
@@ -23,6 +25,16 @@ const routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'users',
+    component: UsersListComponent,
+    children: [
+      {
+        path: 'profile/:id',
+        component: ProfileComponent
+      }
+    ]
   },
   {
     path: '**',
@@ -37,7 +49,9 @@ const routes = [
     AppComponent,
     MessagesComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    UsersListComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
