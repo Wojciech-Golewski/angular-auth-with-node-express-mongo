@@ -13,6 +13,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
 
 
 const routes = [
@@ -37,7 +38,8 @@ const routes = [
     AppComponent,
     MessagesComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    UsersListComponent
   ],
   imports: [
     BrowserModule,
