@@ -13,7 +13,7 @@ var posts = [
 ];
 
 app.use(cors());
-app.use(bodyParser.text());
+app.use(bodyParser.json());
 
 app.get('/posts', (req, res) => {
     res.send(posts);
