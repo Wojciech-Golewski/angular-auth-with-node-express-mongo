@@ -32,7 +32,7 @@ app.post('/register', (req, res) => {
     user.save((err, result) => {
         if (err) console.log('error encountered while registering a new user');
 
-        res.sendStatus(200);
+        res.send(req.body);
     });
 });
 
