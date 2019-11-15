@@ -17,4 +17,8 @@ app.get('/posts', (req, res) => {
     res.send(posts);
 });
 
+app.post('/register', (req, res) => {
+    console.log(req.body);
+})
+
 app.listen(3000);
