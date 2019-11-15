@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
+  registerData = {};
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  post() {
+    console.log(this.registerData);
   }
 
 }
