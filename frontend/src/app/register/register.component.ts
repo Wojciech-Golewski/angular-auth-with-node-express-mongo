@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -7,15 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  registerData = {};
+  registerData: User = {
+    email: "",
+    password: ""
+  };
 
-  constructor() { }
+  constructor(
+    private apiService: ApiService
+  ) { }
 
   ngOnInit() {
   }
 
   post() {
     console.log(this.registerData);
+    this.apiService.sendUserRegistration(this.registerData).subscribe();
   }
 
 }
