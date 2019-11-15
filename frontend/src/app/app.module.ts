@@ -11,6 +11,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { RegisterComponent } from './register/register.component';
 import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 
 const routes = [
@@ -37,6 +38,7 @@ const routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
+    FormsModule,
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
