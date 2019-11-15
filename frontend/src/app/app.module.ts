@@ -12,6 +12,7 @@ import { MatToolbarModule} from '@angular/material/toolbar';
 import { RegisterComponent } from './components/register/register.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
 
 
 const routes = [
@@ -31,7 +32,8 @@ const routes = [
   declarations: [
     AppComponent,
     MessagesComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
