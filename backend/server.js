@@ -20,7 +20,12 @@ app.get('/posts', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-    console.log(req.body);
+    var userData = req.body;
+    console.log(userData.email);
+
+    // TODO: missing validation
+
+    res.sendStatus(200);
 })
 
 app.listen(3000);
