@@ -20,8 +20,8 @@ export class ApiService {
     return this.http.post<User>(`${apiUrl}register`, registeredData);
   }
 
-  loginUser(loginData: User) {
-
+  loginUser(loginData: User): Observable<User> {
+    return this.http.post<User>(`${apiUrl}login`, loginData);
   }
 
 }
