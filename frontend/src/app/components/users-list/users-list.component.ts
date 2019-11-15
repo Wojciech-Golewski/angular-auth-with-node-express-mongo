@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-users-list',
@@ -8,7 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class UsersListComponent implements OnInit {
 
-  users: string[] = [];
+  users: User[];
 
   constructor(
     private apiService: ApiService
