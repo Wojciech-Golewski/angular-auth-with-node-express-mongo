@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var jwt = require('jwt-simple');
 var app = express();
+var bcrypt = require('bcrypt-nodejs');
 
 var User = require('./models/User');
 
@@ -54,20 +55,19 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-    var userData = req.body;
-    var user = await User.findOne({email: userData.email});
+    var loginData = req.body;
+    var user = await User.findOne({email: loginData.email});
 
     if (!user) return res.status(401)
         .send({message: 'Email or Password invalid'});
 
-    if (userData.password != user.password) return res.status(401)
-        .send({message: 'Password is invalid'});
+    bcrypt.compare(loginData.password, user.password, (err, isMatch) => {
+        if (!isMatch) return res.status(401).send({message: 'Password is invalid'});
 
-    var payload = {};
-
-    var token = jwt.encode(payload, 'secret_123_should_come_from_config_file');
-
-    res.status(200).send({token: token});
+        var payload = {};
+        var token = jwt.encode(payload, 'secret_123_should_come_from_config_file');
+        res.status(200).send({token: token});
+    });
 });
 
 mongoose.connect(
