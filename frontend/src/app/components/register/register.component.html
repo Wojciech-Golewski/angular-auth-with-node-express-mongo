@@ -3,7 +3,7 @@
         <mat-card-title>Register New User</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <form class="example-form form-basic-layout">
+        <form class="example-form">
             <mat-form-field class="example-full-width">
                 <input 
                     matInput
@@ -21,6 +21,24 @@
                     placeholder="Password" 
                     type="password"
                 >
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input 
+                    matInput 
+                    [(ngModel)]="registerData.name"
+                    name="name"
+                    placeholder="Name" 
+                    type="name"
+                >
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <textarea 
+                    matInput 
+                    [(ngModel)]="registerData.description"
+                    name="description"
+                    placeholder="Description" 
+                    type="description"
+                ></textarea>
             </mat-form-field>
             <button 
                 mat-raised-button 

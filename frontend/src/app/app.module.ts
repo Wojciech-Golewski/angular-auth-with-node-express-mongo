@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MatListModule } from '@angular/material/list';
 
 
 const routes = [
@@ -28,13 +29,11 @@ const routes = [
   },
   {
     path: 'users',
-    component: UsersListComponent,
-    children: [
-      {
-        path: 'profile/:id',
-        component: ProfileComponent
-      }
-    ]
+    component: UsersListComponent
+  },
+  {
+    path: 'profile/:id',
+    component: ProfileComponent
   },
   {
     path: '**',
@@ -62,7 +61,8 @@ const routes = [
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
-    MatInputModule
+    MatInputModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

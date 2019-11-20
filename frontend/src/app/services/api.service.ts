@@ -20,4 +20,8 @@ export class ApiService {
     return this.http.get<User[]>(`${apiUrl}users`);
   }
 
+  getProfile(id: number): Observable<User> {
+    return this.http.get<User>(`${apiUrl}profile/${id}`);
+  }
+
 }
