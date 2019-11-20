@@ -7,13 +7,11 @@ var app = express();
 
 var User = require('./models/User');
 
+mongoose.promise = Promise;
+
 var posts = [
-    {
-        message: 'hello'
-    },
-    {
-        message: 'hi'
-    }
+    { message: 'hello' },
+    { message: 'hi' }
 ];
 
 app.use(cors());
@@ -31,7 +29,17 @@ app.get('/users', async (req, res) => {
         console.log(error);
         res.sendStatus(500);
     }
-})
+});
+
+app.get('/profile/:id', async (req, res) => {
+    try {
+        var user = await User.findById(req.params.id, '-password -__v');
+        res.send(user);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
 
 app.post('/register', (req, res) => {
     var userData = req.body;
@@ -60,7 +68,7 @@ app.post('/login', async (req, res) => {
     var token = jwt.encode(payload, 'secret_123_should_come_from_config_file');
 
     res.status(200).send({token: token});
-})
+});
 
 mongoose.connect(
     'mongodb+srv://johnDoe:Password.1@angularauthtest-kmk3l.mongodb.net/test?retryWrites=true&w=majority',
