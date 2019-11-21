@@ -21,6 +21,10 @@ import { PostComponent } from './components/post/post.component';
 
 const routes = [
   {
+    path: '',
+    component: PostComponent
+  },
+  {
     path: 'register',
     component: RegisterComponent
   },
