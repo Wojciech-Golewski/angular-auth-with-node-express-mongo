@@ -16,6 +16,7 @@ import { LoginComponent } from './components/login/login.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MatListModule } from '@angular/material/list';
+import { PostComponent } from './components/post/post.component';
 
 
 const routes = [
@@ -50,7 +51,8 @@ const routes = [
     RegisterComponent,
     LoginComponent,
     UsersListComponent,
-    ProfileComponent
+    ProfileComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
