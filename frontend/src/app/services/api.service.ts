@@ -16,6 +16,10 @@ export class ApiService {
     return this.http.get<string[]>(`${apiUrl}posts`);
   }
 
+  postMessage(message: string) {
+    this.http.post<string>(`${apiUrl}post`, message);
+  }
+
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${apiUrl}users`);
   }
