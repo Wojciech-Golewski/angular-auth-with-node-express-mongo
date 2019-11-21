@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
+import { Post } from '../models/post';
 
 const apiUrl: string = 'http://localhost:3000/';
 
@@ -16,8 +17,11 @@ export class ApiService {
     return this.http.get<string[]>(`${apiUrl}posts`);
   }
 
-  postMessage(message: string) {
-    this.http.post<string>(`${apiUrl}post`, message);
+  postMessage(message: Post) {
+    this.http.post<Post>(`${apiUrl}post`, message)
+    .subscribe(res => {
+      console.log(res);
+    });
   }
 
   getUsers(): Observable<User[]> {
