@@ -41,10 +41,6 @@ app.get('/profile/:id', async (req, res) => {
     }
 });
 
-app.post('/register', auth.register);
-
-app.post('/login', auth.login);
-
 mongoose.connect(
     'mongodb+srv://johnDoe:Password.1@angularauthtest-kmk3l.mongodb.net/test?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true },
@@ -53,4 +49,5 @@ mongoose.connect(
     }
 );
 
+app.use('/auth', auth);
 app.listen(3000);
