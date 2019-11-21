@@ -2,24 +2,39 @@ var express = require('express');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var jwt = require('jwt-simple');
 var app = express();
-var bcrypt = require('bcrypt-nodejs');
 
 var User = require('./models/User');
+var Post = require('./models/Post');
+var auth = require('./auth');
 
 mongoose.promise = Promise;
-
-var posts = [
-    { message: 'hello' },
-    { message: 'hi' }
-];
 
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/posts', (req, res) => {
+app.get('/posts/:id', async (req, res) => {
+    var author = req.params.id;
+    var posts = await Post.find({ author });
+
     res.send(posts);
+});
+
+app.post('/post', (req, res) => {
+
+    var postData = req.body;
+    postData.author = '5dd58686bb1479323412eb1a';
+
+    var post = new Post(postData);
+
+    post.save((err, result) => {
+        if (err) {
+            console.error('error encountered while saving a new post');
+            return res.status(500).send({message: 'saving post error'});
+        }
+
+        res.send(req.body);
+    });
 });
 
 app.get('/users', async (req, res) => {
@@ -42,34 +57,6 @@ app.get('/profile/:id', async (req, res) => {
     }
 });
 
-app.post('/register', (req, res) => {
-    var userData = req.body;
-    var user = new User(userData);
-    // TODO: missing validation
-
-    user.save((err, result) => {
-        if (err) console.log('error encountered while registering a new user');
-
-        res.send(req.body);
-    });
-});
-
-app.post('/login', async (req, res) => {
-    var loginData = req.body;
-    var user = await User.findOne({email: loginData.email});
-
-    if (!user) return res.status(401)
-        .send({message: 'Email or Password invalid'});
-
-    bcrypt.compare(loginData.password, user.password, (err, isMatch) => {
-        if (!isMatch) return res.status(401).send({message: 'Password is invalid'});
-
-        var payload = {};
-        var token = jwt.encode(payload, 'secret_123_should_come_from_config_file');
-        res.status(200).send({token: token});
-    });
-});
-
 mongoose.connect(
     'mongodb+srv://johnDoe:Password.1@angularauthtest-kmk3l.mongodb.net/test?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true },
@@ -78,4 +65,5 @@ mongoose.connect(
     }
 );
 
+app.use('/auth', auth);
 app.listen(3000);
