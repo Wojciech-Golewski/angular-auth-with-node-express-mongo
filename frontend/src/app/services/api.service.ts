@@ -13,8 +13,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getMessages(): Observable<string[]> {
-    return this.http.get<string[]>(`${apiUrl}posts`);
+  getMessages(userId: number): Observable<string[]> {
+    return this.http.get<string[]>(`${apiUrl}posts/${userId}`);
   }
 
   postMessage(message: Post) {
