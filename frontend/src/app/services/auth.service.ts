@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
 
-const apiUrl: string = 'http://localhost:3000/';
+const apiUrl: string = 'http://localhost:3000/auth/';
 
 @Injectable({
   providedIn: 'root'
