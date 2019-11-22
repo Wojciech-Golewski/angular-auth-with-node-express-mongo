@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -17,6 +17,7 @@ import { UsersListComponent } from './components/users-list/users-list.component
 import { ProfileComponent } from './components/profile/profile.component';
 import { MatListModule } from '@angular/material/list';
 import { PostComponent } from './components/post/post.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 const routes = [
@@ -70,7 +71,13 @@ const routes = [
     MatInputModule,
     MatListModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
