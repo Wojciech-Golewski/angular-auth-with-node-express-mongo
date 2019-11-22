@@ -26,7 +26,7 @@ router.post('/login', async (req, res) => {
     bcrypt.compare(loginData.password, user.password, (err, isMatch) => {
         if (!isMatch) return res.status(401).send({message: 'Password is invalid'});
 
-        var payload = {};
+        var payload = { subject: user._id };
         var token = jwt.encode(payload, 'secret_123_should_come_from_config_file');
         res.status(200).send({token: token});
     });
