@@ -1,11 +1,30 @@
 <mat-toolbar>
-    <span routerLink="/"
-        class="app-title">
+    <span 
+        routerLink="/"
+        class="app-title"
+    >
         Angular&amp;Node Social-Network
     </span>
     <span class="spacer"></span>
-    <button mat-button routerLink="/login">Login</button>
-    <button mat-button routerLink="/register">Register</button>
-    <button mat-button routerLink="/users">Users</button>
+    <button
+        *ngIf="!authService.isAuthenticated"
+        mat-button
+        routerLink="/login"
+    >
+        Login
+    </button>
+    <button
+        *ngIf="!authService.isAuthenticated"
+        mat-button
+        routerLink="/register"
+    >
+        Register
+    </button>
+    <button
+        mat-button
+        routerLink="/users"
+    >
+        Users
+    </button>
 </mat-toolbar>
 <router-outlet></router-outlet>

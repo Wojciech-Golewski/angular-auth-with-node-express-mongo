@@ -16,6 +16,10 @@ export class AuthService {
     return localStorage.getItem(TOKEN_KEY);
   }
 
+  get isAuthenticated() {
+    return !!localStorage.getItem(TOKEN_KEY);
+  }
+
   registerUser(registeredData: User) {
     this.http.post<User>(`${apiUrl}register`, registeredData)
       .subscribe(res => {
