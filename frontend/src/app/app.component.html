@@ -7,14 +7,14 @@
     </span>
     <span class="spacer"></span>
     <button
-        *ngIf="!authService.isAuthenticated"
+        *ngIf="!isAuthenticated"
         mat-button
         routerLink="/login"
     >
         Login
     </button>
     <button
-        *ngIf="!authService.isAuthenticated"
+        *ngIf="!isAuthenticated"
         mat-button
         routerLink="/register"
     >
@@ -27,9 +27,9 @@
         Users
     </button>
     <button
-        *ngIf="authService.isAuthenticated"
+        *ngIf="isAuthenticated"
         mat-button
-        (click)="authService.logOut()"
+        (click)="logOut()"
     >
         Log out
     </button>
