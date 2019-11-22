@@ -16,4 +16,8 @@ export class AppComponent implements DoCheck {
     this.isAuthenticated = this.authService.isAuthenticated;
   }
 
+  logOut() {
+    this.authService.logOut();
+  }
+
 }
