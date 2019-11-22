@@ -27,16 +27,19 @@ export class AuthService {
   registerUser(registeredData: User) {
     this.http.post<User>(`${apiUrl}register`, registeredData)
       .subscribe(res => {
-        console.log(res);
-        localStorage.setItem(TOKEN_KEY, JSON.parse(JSON.stringify(res)).token);
+        this.saveToken(JSON.parse(JSON.stringify(res)).token);
       })
   }
 
   loginUser(loginData: User) {
     this.http.post<User>(`${apiUrl}login`, loginData)
     .subscribe(res => {
-      console.log(res);
-      localStorage.setItem(TOKEN_KEY, JSON.parse(JSON.stringify(res)).token);
+      this.saveToken(JSON.parse(JSON.stringify(res)).token);
     })
   }
+
+  saveToken(token: string) {
+    localStorage.setItem(TOKEN_KEY, token);
+  }
+
 }
