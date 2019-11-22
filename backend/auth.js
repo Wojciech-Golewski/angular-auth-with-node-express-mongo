@@ -9,10 +9,12 @@ router.post('/register', (req, res) => {
     var user = new User(userData);
     // TODO: missing validation
 
-    user.save((err, result) => {
-        if (err) console.log('error encountered while registering a new user');
+    user.save((err, newUser) => {
+        if (err) return res.status(500).send({message: 'Error while saving user'});
 
-        res.send(req.body);
+        var payload = { subject: newUser._id };
+        var token = jwt.encode(payload, 'secret_123_should_come_from_config_file');
+        res.status(200).send({token: token});
     });
 });
 
