@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
+import { environment } from 'src/environments/environment';
 
-const apiUrl: string = 'http://localhost:3000/auth/';
+const apiUrl: string = `${environment.path}auth/`;
+const TOKEN_KEY: string = 'token';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +13,34 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  get token() {
+    return localStorage.getItem(TOKEN_KEY);
+  }
+
+  get isAuthenticated() {
+    return !!localStorage.getItem(TOKEN_KEY);
+  }
+
+  logOut() {
+    localStorage.removeItem(TOKEN_KEY);
+  }
+
   registerUser(registeredData: User) {
     this.http.post<User>(`${apiUrl}register`, registeredData)
       .subscribe(res => {
-        console.log(res);
+        this.saveToken(JSON.parse(JSON.stringify(res)).token);
       })
   }
 
   loginUser(loginData: User) {
     this.http.post<User>(`${apiUrl}login`, loginData)
     .subscribe(res => {
-      console.log(res);
-      localStorage.setItem('token', JSON.parse(JSON.stringify(res)).token);
+      this.saveToken(JSON.parse(JSON.stringify(res)).token);
     })
   }
+
+  saveToken(token: string) {
+    localStorage.setItem(TOKEN_KEY, token);
+  }
+
 }

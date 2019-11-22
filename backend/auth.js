@@ -9,10 +9,10 @@ router.post('/register', (req, res) => {
     var user = new User(userData);
     // TODO: missing validation
 
-    user.save((err, result) => {
-        if (err) console.log('error encountered while registering a new user');
+    user.save((err, newUser) => {
+        if (err) return res.status(500).send({message: 'Error while saving user'});
 
-        res.send(req.body);
+        createSendToken(res, newUser);
     });
 });
 
@@ -26,10 +26,33 @@ router.post('/login', async (req, res) => {
     bcrypt.compare(loginData.password, user.password, (err, isMatch) => {
         if (!isMatch) return res.status(401).send({message: 'Password is invalid'});
 
-        var payload = {};
-        var token = jwt.encode(payload, 'secret_123_should_come_from_config_file');
-        res.status(200).send({token: token});
+        createSendToken(res, user);
     });
 });
 
-module.exports = router;
+function createSendToken(res, user) {
+    var payload = { subject: user._id };
+    var token = jwt.encode(payload, 'secret_123_should_come_from_config_file');
+    res.status(200).send({token: token});
+}
+
+var auth = {
+    router,
+    checkAuthenticated(req, res, next) {
+        if (!req.header('authorization')) return res.status(401)
+            .send({ message: 'Unauthorized. Missing auth header.' });
+
+        var token = req.header('authorization').split(' ')[1];
+        
+        var payload = jwt.decode(token, 'secret_123_should_come_from_config_file');
+
+        if (!payload) return res.status(401)
+            .send({ message: 'Unauthorized. Auth header invalid.' });
+
+        req.userId = payload.subject;
+
+        next();
+    }
+}
+
+module.exports = auth;
