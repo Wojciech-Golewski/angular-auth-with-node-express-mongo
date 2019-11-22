@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
+import { environment } from 'src/environments/environment';
 
-const apiUrl: string = 'http://localhost:3000/auth/';
+const apiUrl: string = `${environment.path}auth/`;
 const TOKEN_KEY: string = 'token';
 
 @Injectable({

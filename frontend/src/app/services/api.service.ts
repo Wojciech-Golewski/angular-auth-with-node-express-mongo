@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { Post } from '../models/post';
+import { environment } from '../../environments/environment';
 
-const apiUrl: string = 'http://localhost:3000/';
+const apiUrl: string = environment.path;
 
 @Injectable({
   providedIn: 'root'
