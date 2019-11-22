@@ -28,6 +28,7 @@ export class AuthService {
     this.http.post<User>(`${apiUrl}register`, registeredData)
       .subscribe(res => {
         console.log(res);
+        localStorage.setItem(TOKEN_KEY, JSON.parse(JSON.stringify(res)).token);
       })
   }
 
