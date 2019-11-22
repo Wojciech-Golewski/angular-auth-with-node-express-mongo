@@ -3,6 +3,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
+var jwt = require('jwt-simple');
 
 var User = require('./models/User');
 var Post = require('./models/Post');
@@ -20,10 +21,10 @@ app.get('/posts/:id', async (req, res) => {
     res.send(posts);
 });
 
-app.post('/post', (req, res) => {
+app.post('/post', auth.checkAuthenticated, (req, res) => {
 
     var postData = req.body;
-    postData.author = '5dd58686bb1479323412eb1a';
+    postData.author = req.userId;
 
     var post = new Post(postData);
 
@@ -65,5 +66,5 @@ mongoose.connect(
     }
 );
 
-app.use('/auth', auth);
+app.use('/auth', auth.router);
 app.listen(3000);

@@ -32,4 +32,23 @@ router.post('/login', async (req, res) => {
     });
 });
 
-module.exports = router;
+var auth = {
+    router,
+    checkAuthenticated(req, res, next) {
+        if (!req.header('authorization')) return res.status(401)
+            .send({ message: 'Unauthorized. Missing auth header.' });
+
+        var token = req.header('authorization').split(' ')[1];
+        
+        var payload = jwt.decode(token, 'secret_123_should_come_from_config_file');
+
+        if (!payload) return res.status(401)
+            .send({ message: 'Unauthorized. Auth header invalid.' });
+
+        req.userId = payload.subject;
+
+        next();
+    }
+}
+
+module.exports = auth;
