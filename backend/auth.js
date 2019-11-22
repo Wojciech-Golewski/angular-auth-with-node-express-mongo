@@ -12,9 +12,7 @@ router.post('/register', (req, res) => {
     user.save((err, newUser) => {
         if (err) return res.status(500).send({message: 'Error while saving user'});
 
-        var payload = { subject: newUser._id };
-        var token = jwt.encode(payload, 'secret_123_should_come_from_config_file');
-        res.status(200).send({token: token});
+        createSendToken(res, newUser);
     });
 });
 
@@ -28,11 +26,15 @@ router.post('/login', async (req, res) => {
     bcrypt.compare(loginData.password, user.password, (err, isMatch) => {
         if (!isMatch) return res.status(401).send({message: 'Password is invalid'});
 
-        var payload = { subject: user._id };
-        var token = jwt.encode(payload, 'secret_123_should_come_from_config_file');
-        res.status(200).send({token: token});
+        createSendToken(res, user);
     });
 });
+
+function createSendToken(res, user) {
+    var payload = { subject: user._id };
+    var token = jwt.encode(payload, 'secret_123_should_come_from_config_file');
+    res.status(200).send({token: token});
+}
 
 var auth = {
     router,
